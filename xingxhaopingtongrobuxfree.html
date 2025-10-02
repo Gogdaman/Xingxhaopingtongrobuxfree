@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Robux — Free Generator</title>
+<style>
+  :root{
+    --bg:#0b1220;
+    --card:#0f1724;
+    --accent:#6EE7B7;
+    --muted:#9aa6b2;
+  }
+  *{box-sizing:border-box;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;}
+  body{
+    margin:0;
+    min-height:100vh;
+    background:
+      radial-gradient(1200px 600px at 10% 10%, rgba(110,231,183,0.06), transparent 8%),
+      linear-gradient(180deg, #071023 0%, #081429 100%);
+    display:flex;align-items:center;justify-content:center;padding:24px;color:#e6eef6;
+  }
+  .container{
+    width:100%;max-width:920px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border-radius:16px;padding:28px;box-shadow:0 10px 30px rgba(2,6,23,0.6);border:1px solid rgba(255,255,255,0.03);
+    display:grid;grid-template-columns:1fr 360px;gap:20px;align-items:start;
+  }
+
+  header{grid-column:1/-1;display:flex;align-items:center;gap:12px}
+  .logo{
+    width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#34d399);
+    display:flex;align-items:center;justify-content:center;font-weight:700;color:#04211a;font-size:18px;
+    box-shadow:0 6px 20px rgba(46,204,150,0.12), inset 0 -6px 14px rgba(0,0,0,0.12);
+  }
+  h1{margin:0;font-size:20px}
+  p.lead{margin:0;color:var(--muted);font-size:13px}
+
+  .left{
+    padding:18px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
+    border-radius:12px;border:1px solid rgba(255,255,255,0.02);
+  }
+
+  .preview{
+    display:flex;gap:12px;align-items:center;margin-top:12px;
+  }
+  .coin{
+    width:84px;height:84px;border-radius:12px;background:conic-gradient(from 120deg, #ffd36b, #ffb86b, #ffd36b);
+    display:flex;align-items:center;justify-content:center;font-weight:800;color:#2b1a00;font-size:28px;
+    box-shadow:0 10px 30px rgba(255,183,77,0.12);
+  }
+  .features{margin-top:14px;color:var(--muted);font-size:13px;line-height:1.6}
+
+  .right{
+    padding:18px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
+    border-radius:12px;border:1px solid rgba(255,255,255,0.02);
+  }
+
+  label{display:block;font-size:13px;margin-bottom:8px;color:#cfeee0}
+  .amounts{display:flex;gap:10px;flex-wrap:wrap}
+  .amount-btn{
+    padding:10px 14px;border-radius:10px;background:transparent;border:1px dashed rgba(255,255,255,0.04);
+    cursor:pointer;color:var(--muted);font-weight:600;font-size:14px;min-width:86px;text-align:center;
+    transition:all .14s ease;
+  }
+  .amount-btn:hover{transform:translateY(-4px);border-color:rgba(110,231,183,0.18);color:var(--accent)}
+  .amount-btn.active{background:rgba(110,231,183,0.04);border-style:solid;color:var(--accent);border-color:rgba(110,231,183,0.22)}
+
+  .accept{
+    margin-top:16px;display:flex;gap:10px;align-items:center;
+  }
+  .accept button{
+    flex:1;padding:12px 16px;border-radius:12px;border:0;background:linear-gradient(90deg,var(--accent),#34d399);color:#052018;font-weight:800;cursor:pointer;
+    font-size:15px;box-shadow:0 8px 24px rgba(46,204,150,0.12);
+  }
+  .small{
+    font-size:12px;color:var(--muted);
+  }
+
+  /* full-screen prank overlay */
+  .prank{
+    position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg, rgba(0,0,0,0.6), rgba(0,0,0,0.8));
+    z-index:80;backdrop-filter:blur(4px);visibility:hidden;opacity:0;transition:opacity .25s ease, visibility .25s ease;
+  }
+  .prank.show{visibility:visible;opacity:1}
+  .prank-card{
+    background:linear-gradient(180deg,#071428,#0b1a2a);padding:36px;border-radius:16px;border:1px solid rgba(255,255,255,0.04);
+    text-align:center;max-width:680px;width:92%;
+  }
+  .prank-card h2{margin:0;font-size:44px;letter-spacing:1px}
+  .prank-card p{margin:12px 0 0;color:var(--muted);font-size:16px}
+  .prank-card .ok{
+    margin-top:20px;padding:12px 20px;border-radius:12px;background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--accent);font-weight:700;cursor:pointer;font-size:15px;
+  }
+
+  footer{grid-column:1/-1;margin-top:8px;text-align:center;color:var(--muted);font-size:12px}
+  .warning{margin-top:12px;font-size:12px;color:#ffd6d6;background:rgba(255,210,210,0.03);padding:8px;border-radius:8px;border:1px solid rgba(255,120,120,0.04)}
+</style>
+</head>
+<body>
+  <div class="container" role="main" aria-labelledby="title">
+    <header>
+      <div class="logo" aria-hidden>BB</div>
+      <div>
+        <h1 id="title">Robux Generator - (made by a very beautiful and handsome guy)</h1>
+        <p class="lead">This is 100% (olumsuz) affiliated with Roblox.</p>
+      </div>
+    </header>
+
+    <div class="left" aria-hidden>
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div>
+          <div style="font-size:13px;color:var(--muted)">Instant generator</div>
+          <div style="font-weight:800;font-size:20px;margin-top:6px">Get free Robux</div>
+        </div>
+        <div class="coin">₿</div>
+      </div>
+
+      <div class="preview" aria-hidden>
+        <div style="flex:1">
+          <div style="height:10px;background:linear-gradient(90deg,#123 0%,#234 100%);border-radius:6px;margin-bottom:8px;"></div>
+          <div style="height:8px;background:rgba(255,255,255,0.02);border-radius:6px;width:80%"></div>
+        </div>
+      </div>
+
+      <div class="features">
+        <strong>Features</strong>
+        <ul style="margin:8px 0 0 18px">
+          <li>Robux currency</li>
+          <li>Very real servers involved</li>
+          <li>Instant generator results — free robux</li>
+        </ul>
+        <div class="warning" role="note"><strong>Note:</strong> This page is 100% guranteed to give u free Robux.</div>
+      </div>
+    </div>
+
+    <aside class="right" role="region" aria-label="Generator">
+      <label for="amount">Choose amount</label>
+      <div class="amounts" id="amounts">
+        <button class="amount-btn" data-amount="50">50</button>
+        <button class="amount-btn" data-amount="250">250</button>
+        <button class="amount-btn" data-amount="500">500</button>
+        <button class="amount-btn" data-amount="1000">1000</button>
+        <button class="amount-btn" data-amount="5000">5000</button>
+	<button class="amount-btn" data-amount="10000">10000</button>
+      </div>
+
+      <div class="accept" style="align-items:end">
+        <div class="small">I am not a bot — click to accept</div>
+        <button id="acceptBtn">Generate</button>
+      </div>
+
+      <div style="margin-top:12px;color:var(--muted);font-size:13px">
+        This is a free robux generator. It will absolutely affect real accounts.
+      </div>
+    </aside>
+
+    <footer>
+      Built for free robux
+    </footer>
+  </div>
+
+  <!-- prank overlay -->
+  <div class="prank" id="prankOverlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="prank-card" id="prankCard">
+      <h2 id="prankTitle">LOL — get pranked!</h2>
+      <p id="prankText">Stewpid 😄</p>
+      <button class="ok" id="prankOk">Alright, I get it</button>
+    </div>
+  </div>
+
+<script>
+  // accessible amount selection
+  const amountBtns = document.querySelectorAll('.amount-btn');
+  let selected = null;
+  amountBtns.forEach(b=>{
+    b.addEventListener('click', ()=>{
+      amountBtns.forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');
+      selected = b.dataset.amount;
+    });
+    b.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' ') b.click(); });
+  });
+
+  // accept button — shows prank overlay
+  const acceptBtn = document.getElementById('acceptBtn');
+  const overlay = document.getElementById('prankOverlay');
+  const prankOk = document.getElementById('prankOk');
+
+  acceptBtn.addEventListener('click', ()=>{
+    // small playful check: if nothing selected, choose 500 by default
+    if(!selected) selected = '500';
+    // show overlay with a tiny fake "processing" then show prank message
+    acceptBtn.disabled = true;
+    acceptBtn.textContent = 'Processing...';
+    setTimeout(()=>{
+      acceptBtn.textContent = 'Generate';
+      acceptBtn.disabled = false;
+      // update message to include chosen amount (still a prank)
+      document.getElementById('prankText').textContent = `You selected ${selected} Robux — LOL, get pranked!`;
+      overlay.classList.add('show');
+      overlay.setAttribute('aria-hidden','false');
+      // focus ok button for accessibility
+      prankOk.focus();
+    }, 1100);
+  });
+
+  prankOk.addEventListener('click', ()=>{
+    overlay.classList.remove('show');
+    overlay.setAttribute('aria-hidden','true');
+  });
+
+  // close overlay on Escape
+  document.addEventListener('keydown', (e)=>{
+    if(e.key==='Escape' && overlay.classList.contains('show')){
+      overlay.classList.remove('show');
+      overlay.setAttribute('aria-hidden','true');
+    }
+  });
+
+  // prevent accidental form submission if user presses Enter while focused
+  window.addEventListener('keydown', (e)=>{ if(e.key === 'Enter' && document.activeElement.tagName === 'BODY') e.preventDefault(); });
+</script>
+</body>
+</html>
